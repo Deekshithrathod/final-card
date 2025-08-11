@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Reward Card</title>
+		<style>
+			body {
+				background-color: #000;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+				margin: 0;
+				font-family: Arial, sans-serif;
+			}
+			.card {
+				background: linear-gradient(180deg, #2a003f, #1a002a);
+				border-radius: 20px;
+				padding: 20px;
+				width: 300px;
+				color: white;
+				box-shadow: 0 0 20px #a84cff;
+				text-align: center;
+				position: relative;
+				border: 2px solid #a84cff;
+				transform-style: preserve-3d;
+				transform: rotateX(5deg) rotateY(-20deg); /* initial tilt: X=20deg, Y=-20deg */
+				transform-origin: center;
+				animation: sway 8s cubic-bezier(0.1, 0.1, 0.1, 1) infinite;
+			}
+
+			@keyframes rotateYLoop {
+				0% {
+					transform: rotateX(5deg) rotateY(-20deg);
+				}
+				100% {
+					transform: rotateX(5deg) rotateY(20deg);
+				}
+			}
+			.card video {
+				width: 90%;
+				border-radius: 10px;
+				margin-bottom: 20px;
+			}
+			.congrats {
+				color: orange;
+				font-weight: bold;
+				font-size: 1.2em;
+			}
+			.item {
+				font-size: 0.9em;
+				color: #aaa;
+			}
+			.price-tag {
+				display: inline-block;
+				padding: 8px 16px;
+				border: 2px solid orange;
+				border-radius: 8px;
+				font-weight: bold;
+				color: orange;
+				margin: 10px 0;
+			}
+			.legendary {
+				background-color: transparent;
+				border: 2px solid orange;
+				color: orange;
+				padding: 4px 8px;
+				font-size: 0.8em;
+				display: inline-block;
+				margin-left: 8px;
+				border-radius: 6px;
+			}
+			.footer {
+				margin-top: 20px;
+				font-size: 0.8em;
+				color: #ccc;
+			}
+			.brand {
+				margin-top: 5px;
+				font-size: 0.9em;
+				font-weight: bold;
+			}
+			.scene {
+				perspective: 1200px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+			}
+			@keyframes sway {
+				0% {
+					transform: rotateX(5deg) rotateY(-20deg);
+				}
+				50% {
+					transform: rotateX(5deg) rotateY(20deg);
+				}
+				100% {
+					transform: rotateX(5deg) rotateY(-20deg);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="scene">
+			<div class="card">
+				<video class="item-image" autoplay loop muted playsinline>
+					<source src="./final_video_loop.mp4" type="video/mp4" />
+				</video>
+				<div class="congrats">CONGRATULATIONS!</div>
+				<div class="item">Kukri Knife | Slaughter</div>
+				<div>
+					<span class="price-tag">$1240,50</span>
+
+					<span class="legendary">LEGENDARY</span>
+				</div>
+				<div class="footer">Aleksandr<br />April 24, 2025 11:57</div>
+				<div class="brand">CRAZE SKIN</div>
+			</div>
+		</div>
+	</body>
+</html>
