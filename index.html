@@ -46,7 +46,6 @@
 
 				transform: rotateX(10deg) rotateY(-25deg);
 				transform-style: preserve-3d;
-				animation: none;
 			}
 
 			.card-container img {
@@ -111,7 +110,7 @@
 				loop
 				muted
 				playsinline
-				src="./temp/vid_nobg.mp4"></video>
+				src="./temp/vid_nobg1.mp4"></video>
 			<img src="./temp/3.png" alt="3.png" />
 			<img src="./temp/5.png" alt="5.png" />
 			<img src="./temp/6.png" alt="6.png" />
@@ -124,24 +123,52 @@
 			const nameInput = document.getElementById("nameInput");
 			const cardName = document.getElementById("cardName");
 
-			function restartAnimation() {
-				card.style.animation = "none";
-				void card.offsetWidth;
-				card.style.animation = "swingY 4s alternate infinite linear";
+			// Web Animations API for smooth card animation
+			let cardAnim;
+			function playCardAnimation(duration = 4000) {
+				if (cardAnim) cardAnim.cancel();
+				cardAnim = card.animate(
+					[
+						{ transform: "rotateX(10deg) rotateY(-25deg)" },
+						{ transform: "rotateX(10deg) rotateY(25deg)" },
+					],
+					{
+						duration: duration,
+						direction: "alternate",
+						iterations: Infinity,
+						easing: "linear",
+					}
+				);
 			}
 
-			video.addEventListener("play", restartAnimation);
+			function syncAnimWithVideo() {
+				const videoDuration = video.duration || 4;
+				playCardAnimation(4000);
+			}
+
+			video.addEventListener("play", syncAnimWithVideo);
+			video.addEventListener("loadedmetadata", syncAnimWithVideo);
 			video.addEventListener("ended", () => {
 				video.currentTime = 0;
 				video.play();
-				restartAnimation();
-			});
-			video.addEventListener("timeupdate", () => {
-				if (video.currentTime < 0.1) restartAnimation();
+				syncAnimWithVideo();
 			});
 
 			nameInput.addEventListener("input", (e) => {
 				cardName.textContent = e.target.value || " ";
+			});
+
+			// Start animation on page load
+			window.addEventListener("DOMContentLoaded", () => {
+				syncAnimWithVideo();
+				setInterval(() => {
+					// Seamlessly refresh video and animation every 24s
+					if (!video.paused) {
+						video.currentTime = 0;
+						video.play();
+						syncAnimWithVideo();
+					}
+				}, 24000);
 			});
 		</script>
 	</body>
